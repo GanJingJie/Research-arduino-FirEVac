@@ -66,6 +66,14 @@ void turnRight() {
   digitalWrite(RightIN4, LOW);
 }
 
+// stops robot movement
+void stopRobot() {
+  digitalWrite(LeftIN1, LOW);
+  digitalWrite(LeftIN2, LOW);
+  digitalWrite(RightIN3, LOW);
+  digitalWrite(RightIN4, LOW);
+}
+
 // turns robot 180 degrees
 void kebelakangPusing() {
 
@@ -114,17 +122,12 @@ void trackEvacRoute() {
     turnRight();
   }
 }
-void stopRobot() {
-  digitalWrite(LeftIN1, LOW);
-  digitalWrite(LeftIN2, LOW);
-  digitalWrite(RightIN3, LOW);
-  digitalWrite(RightIN4, LOW);
-}
 
+// fire detection
 void detectFire() {
-  int flameValue = digitalRead(Flame_DO);
+  bool flameValue = digitalRead(Flame_DO);
 
-  if (flameValue == LOW) {
+  if (flameValue == HIGH) {
     Serial.println("Fire detected!");
 
     // Stop the robot
@@ -138,10 +141,8 @@ void detectFire() {
     // Turn off water pump
     digitalWrite(RelayIN, HIGH);
   }
-  else {
-    Serial.println("No fire detected");
-  }
 }
+
 void loop() {
   // put your main code here, to run repeatedly:
 
