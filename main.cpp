@@ -148,14 +148,12 @@ void obstacleDetection() {
   float midDistance = measureDistance(MidTrigUS, MidEchoUS);
   float rightDistance = measureDistance(RightTrigUS, RightEchoUS);
 
-  Serial.print("Left: ");
-  Serial.println(leftDistance);
+  if （(midDistance >= 0 && midDistance < 20 ）//(leftDistance >= 0 && leftDistance < 20）//(rightDistance >= 0 && rightDistance < 20))||
+      
+    return true;
+  }
 
-  Serial.print("Middle: ");
-  Serial.println(midDistance);
-
-  Serial.print("Right: ");
-  Serial.println(rightDistance);
+  return false;
 
 }
 // Turn relay ON
