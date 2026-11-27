@@ -142,19 +142,18 @@ void detectFire() {
     digitalWrite(RelayIN, HIGH);
   }
 // turn obstacleDetection on
-void obstacleDetection() {
+bool obstacleDetection() {
 
   float leftDistance = measureDistance(LeftTrigUS, LeftEchoUS);
   float midDistance = measureDistance(MidTrigUS, MidEchoUS);
   float rightDistance = measureDistance(RightTrigUS, RightEchoUS);
 
-  if （(midDistance >= 0 && midDistance < 20 ）//(leftDistance >= 0 && leftDistance < 20）//(rightDistance >= 0 && rightDistance < 20))||
+  if （(midDistance >= 0 && midDistance < 20 ）|| (leftDistance >= 0 && leftDistance < 20）||(rightDistance >= 0 && rightDistance < 20)){
       
     return true;
   }
 
   return false;
-
 }
 // Turn relay ON
 void relayON() {
