@@ -39,7 +39,7 @@ void setup() {
   pinMode(RightEchoUS, INPUT);
 
   pinMode(Flame_DO, INPUT);
-  pinMode(RelayIN, OUPUT)
+  pinMode(RelayIN, OUPUT);
 }
 
 // moves robot forwards
@@ -141,7 +141,7 @@ void trackEvacRoute() {
 void detectFire() {
   bool flameValue = digitalRead(Flame_DO);
 
-  if (flameValue == HIGH) {
+  while (flameValue == HIGH) {
     Serial.println("Fire detected!");
 
     // Stop the robot
@@ -154,7 +154,10 @@ void detectFire() {
 
     // Turn off water pump
     digitalWrite(RelayIN, HIGH);
+    
   }
+
+}
 
 // turn obstacleDetection on
 bool obstacleDetection() {
@@ -163,18 +166,21 @@ bool obstacleDetection() {
   float midDistance = measureDistance(MidTrigUS, MidEchoUS);
   float rightDistance = measureDistance(RightTrigUS, RightEchoUS);
 
-  if （(midDistance >= 0 && midDistance < 20) || (leftDistance >= 0 && leftDistance < 20) || (rightDistance >= 0 && rightDistance < 20)){ 
+  if ((midDistance >= 0 && midDistance < 20) || (leftDistance >= 0 && leftDistance < 20) || (rightDistance >= 0 && rightDistance < 20)){ 
+    // obstacle detected
     return true;
   }
+
+  // nothing detected
   return false;
 }
 
-// Turn relay ON
+// Turn relay ON (water pump control)
 void relayON() {
   digitalWrite(RelayIN, HIGH);
 }
 
-// Turn relay OFF
+// Turn relay OFF (water pump control)
 void relayOFF() {
   digitalWrite(RelayIN, LOW);
 }
@@ -182,20 +188,44 @@ void relayOFF() {
 void loop() {
   // Check obstacle in front
   if (obstacleDetection()) {
-
     stopRobot();
-
     Serial.println("Obstacle detected!");
-
   }
-
   // No obstacle detected
   else {
-
     trackEvacRoute();
-
   }
 
   delay(50);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
