@@ -78,17 +78,18 @@ void stopRobot() {
 void kebelakangPusing() {
   // time needed for a 180 degree turn (in miliseconds)
   // must be calibrated on the real robot
-  const int TURN_180_TIME = 800
-  // left motor backwards
+  const int TURN_180_TIME = 800;
+  
+  // turn robot 180 degrees
   digitalWrite(LeftIN1, LOW);
   digitalWrite(LeftIN2, HIGH);
-  // right motor forwards
   digitalWrite(RightIN3, HIGH);
   digitalWrite(RightIN4, LOW);
 
 
   // keep spinning until the robot has turned 180 degrees
   delay(TURN_180_TIME);
+  stopRobot();
 
 }
 
@@ -154,6 +155,7 @@ void detectFire() {
     // Turn off water pump
     digitalWrite(RelayIN, HIGH);
   }
+
 // turn obstacleDetection on
 bool obstacleDetection() {
 
@@ -161,13 +163,12 @@ bool obstacleDetection() {
   float midDistance = measureDistance(MidTrigUS, MidEchoUS);
   float rightDistance = measureDistance(RightTrigUS, RightEchoUS);
 
-  if （(midDistance >= 0 && midDistance < 20 ）|| (leftDistance >= 0 && leftDistance < 20）||(rightDistance >= 0 && rightDistance < 20)){
-      
+  if （(midDistance >= 0 && midDistance < 20) || (leftDistance >= 0 && leftDistance < 20) || (rightDistance >= 0 && rightDistance < 20)){ 
     return true;
   }
-
   return false;
 }
+
 // Turn relay ON
 void relayON() {
   digitalWrite(RelayIN, HIGH);
@@ -179,14 +180,8 @@ void relayOFF() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  // Read ultrasonic sensors
-  float leftDistance = measureDistance(LeftTrigUS, LeftEchoUS);
-  float midDistance = measureDistance(MidTrigUS, MidEchoUS);
-  float rightDistance = measureDistance(RightTrigUS, RightEchoUS);
-
   // Check obstacle in front
-  if (midDistance > 0 && midDistance < 20) {
+  if (obstacleDetection()) {
 
     stopRobot();
 
@@ -204,4 +199,3 @@ void loop() {
   delay(50);
 }
 
-//test
