@@ -76,6 +76,19 @@ void stopRobot() {
 
 // turns robot 180 degrees
 void kebelakangPusing() {
+  // time needed for a 180 degree turn (in miliseconds)
+  // must be calibrated on the real robot
+  const int TURN_180_TIME = 800
+  // left motor backwards
+  digitalWrite(LeftIN1, LOW);
+  digitalWrite(LeftIN2, HIGH);
+  // right motor forwards
+  digitalWrite(RightIN3, HIGH);
+  digitalWrite(RightIN4, LOW);
+
+
+  // keep spinning until the robot has turned 180 degrees
+  delay(TURN_180_TIME);
 
 }
 
