@@ -39,7 +39,7 @@ void setup() {
   pinMode(RightEchoUS, INPUT);
 
   pinMode(Flame_DO, INPUT);
-  pinMode(RelayIN, OUPUT);
+  pinMode(RelayIN, OUTPUT);
 }
 
 // moves robot forwards
